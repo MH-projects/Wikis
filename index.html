@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual técnico de Git y GitHub: comandos, ramas, configuración y solución de errores.">
+  <meta name="theme-color" content="#292929">
+  <title>Manual Técnico · Git & GitHub</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Manual Git, inicio">
+      <span class="brand-mark">⌘</span><span>GIT<span class="brand-dot">.</span></span>
+      <small>MANUAL TÉCNICO</small>
+    </a>
+    <div class="top-actions">
+      <label class="search-wrap" for="search">
+        <span aria-hidden="true">⌕</span>
+        <input id="search" type="search" placeholder="Buscar comando o descripción…" autocomplete="off">
+        <kbd>⌘ K</kbd>
+      </label>
+      <a class="github-link" href="https://github.com" target="_blank" rel="noreferrer">GitHub ↗</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <div class="layout" id="inicio">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-label">CONTENIDO</div>
+      <nav>
+        <a class="nav-link active" href="#introduccion"><span>01</span> Introducción</a>
+        <a class="nav-link" href="#estados"><span>02</span> Estados de Git</a>
+        <a class="nav-link" href="#configuracion"><span>03</span> Configuración</a>
+        <a class="nav-link" href="#comunes"><span>04</span> Comandos comunes</a>
+        <a class="nav-link" href="#reset"><span>05</span> Reset</a>
+        <a class="nav-link" href="#branch"><span>06</span> Branch & Merge</a>
+        <a class="nav-link" href="#github"><span>07</span> GitHub</a>
+        <a class="nav-link" href="#tags"><span>08</span> Tags</a>
+        <a class="nav-link" href="#vim"><span>09</span> Vim</a>
+        <a class="nav-link" href="#errores"><span>10</span> Errores</a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="status-dot"></span>
+        Referencia rápida
+        <p>Comandos esenciales para el trabajo diario con Git.</p>
+      </div>
+      <div class="side-footer">MANUEL HIDALGO · 2026</div>
+    </aside>
+
+    <main class="content">
+      <section class="hero" id="introduccion">
+        <div class="eyebrow"><span></span> DESARROLLO · CONTROL DE VERSIONES</div>
+        <div class="hero-grid">
+          <div>
+            <h1>Manual técnico<br><em>Git & GitHub</em></h1>
+            <p class="hero-copy">Una guía práctica de comandos para administrar versiones, organizar ramas y colaborar en proyectos.</p>
+            <div class="hero-buttons">
+              <a class="button primary" href="#comunes">Explorar comandos <span>↓</span></a>
+              <a class="button secondary" href="https://git-scm.com/downloads" target="_blank" rel="noreferrer">Descargar Git ↗</a>
+            </div>
+          </div>
+          <div class="git-art" aria-label="Ilustración abstracta de ramas Git">
+            <div class="git-diamond"><i></i><b></b><span></span></div>
+            <div class="git-word">git</div>
+            <div class="art-caption">TRACK · COMMIT · SHARE</div>
+          </div>
+        </div>
+        <div class="hero-meta"><span>GUÍA DE REFERENCIA</span><span>LECTURA: 8 MIN</span><span>ESPAÑOL</span></div>
+      </section>
+
+      <section class="section" id="estados">
+        <div class="section-heading"><div><div class="eyebrow">FUNDAMENTOS</div><h2>Los estados de Git</h2></div><p>El flujo básico de trabajo pasa por tres áreas.</p></div>
+        <div class="state-flow">
+          <article class="state-card"><div class="state-number">01</div><div class="state-icon">⌨</div><h3>Working Directory</h3><p>Área donde editas y trabajas con los archivos del proyecto.</p></article>
+          <div class="flow-arrow">→</div>
+          <article class="state-card featured"><div class="state-number">02</div><div class="state-icon">＋</div><h3>Staging Area</h3><p>Seleccionas los cambios que estarán incluidos en el próximo commit.</p></article>
+          <div class="flow-arrow">→</div>
+          <article class="state-card"><div class="state-number">03</div><div class="state-icon">◈</div><h3>Repository</h3><p>Historial de commits que registra la evolución del proyecto.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="configuracion">
+        <div class="section-heading"><div><div class="eyebrow">PRIMEROS PASOS</div><h2>Configuraciones básicas</h2></div><p>Define tu identidad y personaliza los comandos de Git.</p></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>GRUPO</th><th>ACCIÓN</th><th>COMANDO</th></tr></thead>
+          <tbody>
+            <tr><td rowspan="2"><b>Nombre</b></td><td>Configurar el nombre</td><td><code>git config --global user.name "Nombre"</code><button class="copy" aria-label="Copiar comando">Copiar</button></td></tr>
+            <tr><td>Ver el nombre</td><td><code>git config --global user.name</code><button class="copy">Copiar</button></td></tr>
+            <tr><td rowspan="2"><b>Correo</b></td><td>Configurar el correo</td><td><code>git config --global user.email "correo@dominio.com"</code><button class="copy">Copiar</button></td></tr>
+            <tr><td>Ver el correo</td><td><code>git config --global user.email</code><button class="copy">Copiar</button></td></tr>
+            <tr><td><b>Colores</b></td><td>Activar colores en la salida</td><td><code>git config --global color.ui true</code><button class="copy">Copiar</button></td></tr>
+            <tr><td><b>Configuración</b></td><td>Listar configuraciones</td><td><code>git config --global --list</code><button class="copy">Copiar</button></td></tr>
+            <tr><td rowspan="3"><b>Alias</b></td><td>Crear un atajo para status</td><td><code>git config --global alias.s status</code><button class="copy">Copiar</button></td></tr>
+            <tr><td>Eliminar un alias</td><td><code>git config --global --unset alias.nombre</code><button class="copy">Copiar</button></td></tr>
+            <tr><td>Eliminar todos los alias</td><td><code>git config --global --remove-section alias</code><button class="copy">Copiar</button></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="section" id="comunes">
+        <div class="section-heading"><div><div class="eyebrow">DÍA A DÍA</div><h2>Comandos comunes</h2></div><p>Filtra los comandos con el buscador de la parte superior.</p></div>
+        <div class="command-grid">
+          <article class="command-card" data-search="help ayuda documentación comandos">
+            <div class="command-top"><span class="tag">AYUDA</span><span class="command-symbol">?</span></div><h3>Help</h3><p>Consulta la ayuda general o la de un comando específico.</p><div class="code-line"><code>git help add</code><button class="copy">Copiar</button></div>
+          </article>
+          <article class="command-card" data-search="init iniciar inicializar repositorio proyecto">
+            <div class="command-top"><span class="tag">INICIO</span><span class="command-symbol">↳</span></div><h3>Init</h3><p>Inicializa un repositorio Git en el directorio actual.</p><div class="code-line"><code>git init</code><button class="copy">Copiar</button></div>
+          </article>
+          <article class="command-card" data-search="status estado archivos modificados">
+            <div class="command-top"><span class="tag">ESTADO</span><span class="command-symbol">◉</span></div><h3>Status</h3><p>Muestra archivos modificados, preparados y sin seguimiento.</p><div class="code-line"><code>git status</code><button class="copy">Copiar</button></div>
+          </article>
+          <article class="command-card" data-search="add agregar staging archivos">
+            <div class="command-top"><span class="tag">PREPARAR</span><span class="command-symbol">＋</span></div><h3>Add</h3><p>Agrega archivos al área de preparación.</p><div class="code-line"><code>git add archivo.ext</code><button class="copy">Copiar</button></div><div class="code-line"><code>git add -A</code><button class="copy">Copiar</button></div><div class="code-line"><code>git add .</code><button class="copy">Copiar</button></div>
+          </article>
+          <article class="command-card" data-search="commit guardar registrar cambios mensaje">
+            <div class="command-top"><span class="tag">HISTORIAL</span><span class="command-symbol">◈</span></div><h3>Commit</h3><p>Registra los cambios preparados con un mensaje descriptivo.</p><div class="code-line"><code>git commit -m "First commit"</code><button class="copy">Copiar</button></div><div class="code-line"><code>git commit --amend -m "New commit"</code><button class="copy">Copiar</button></div>
+          </article>
+          <article class="command-card" data-search="log historial commits gráfico autor fecha">
+            <div class="command-top"><span class="tag">HISTORIAL</span><span class="command-symbol">≋</span></div><h3>Log</h3><p>Consulta el historial de commits con distintos formatos.</p><div class="code-line"><code>git log</code><button class="copy">Copiar</button></div><div class="code-line"><code>git log --oneline</code><button class="copy">Copiar</button></div><div class="code-line"><code>git log --graph --oneline</code><button class="copy">Copiar</button></div><div class="code-line"><code>git log --stat</code><button class="copy">Copiar</button></div><div class="code-line"><code>git log --author="Nombre"</code><button class="copy">Copiar</button></div><div class="code-line"><code>git log --after="2024-01-01"</code><button class="copy">Copiar</button></div><div class="code-line"><code>git log &gt; commits.txt</code><button class="copy">Copiar</button></div>
+          </article>
+          <article class="command-card" data-search="checkout cambiar versión rama commit">
+            <div class="command-top"><span class="tag">NAVEGACIÓN</span><span class="command-symbol">⇄</span></div><h3>Checkout</h3><p>Cambia de rama o inspecciona una versión concreta.</p><div class="code-line"><code>git checkout abc1234</code><button class="copy">Copiar</button></div><div class="code-line"><code>git checkout main</code><button class="copy">Copiar</button></div>
+          </article>
+          <article class="command-card" data-search="stash guardar temporal cambios recuperar lista drop">
+            <div class="command-top"><span class="tag">TEMPORAL</span><span class="command-symbol">▱</span></div><h3>Stash</h3><p>Guarda temporalmente cambios sin crear un commit.</p><div class="code-line">
+              <code>git stash</code><button class="copy">Copiar</button></div><div class="code-line">
+              <code>git stash push -m "Feature example"</code><button class="copy">Copiar</button></div><div class="code-line">
+              <code>git stash pop</code><button class="copy">Copiar</button></div><div class="code-line">
+              <code>git stash list</code><button class="copy">Copiar</button></div><div class="code-line">
+              <code>git stash drop</code><button class="copy">Copiar</button></div>
+              
+          </article>
+          <article class="command-card" data-search="blame autor cambios archivo">
+            <div class="command-top"><span class="tag">INSPECCIÓN</span><span class="command-symbol">⌕</span></div><h3>Blame</h3><p>Consulta quién modificó cada línea de un archivo y cuándo.</p><div class="code-line"><code>git blame archivo.ext</code><button class="copy">Copiar</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="reset">
+        <div class="section-heading"><div><div class="eyebrow">CUIDADO CON EL HISTORIAL</div><h2>Reset</h2></div><p>Los modos determinan qué partes del estado del repositorio se actualizan.</p></div>
+        <div class="notice warning"><span>!</span><p><b>Atención:</b> <code>--hard</code> puede descartar cambios locales. Verifica el estado del repositorio antes de ejecutarlo.</p></div>
+        <div class="reset-grid">
+          <article><span class="reset-type">SOFT</span><h3>Conserva los cambios preparados</h3><p>Mueve HEAD; mantiene el staging area y el working directory.</p><div class="code-line"><code>git reset --soft abc1234</code><button class="copy">Copiar</button></div></article>
+          <article><span class="reset-type">MIXED</span><h3>Reinicia el staging area</h3><p>Mueve HEAD y limpia el staging area, sin descartar los cambios del working directory. Es el modo predeterminado.</p><div class="code-line"><code>git reset --mixed abc1234</code><button class="copy">Copiar</button></div></article>
+          <article class="danger"><span class="reset-type">HARD</span><h3>Descarta cambios locales</h3><p>Actualiza HEAD, staging y working directory al commit indicado.</p><div class="code-line"><code>git reset --hard abc1234</code><button class="copy">Copiar</button></div><div class="code-line"><code>git reset --hard HEAD~1</code><button class="copy">Copiar</button></div><div class="code-line"><code>git reset --hard HEAD@{1}</code><button class="copy">Copiar</button></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="branch">
+        <div class="section-heading"><div><div class="eyebrow">TRABAJO EN PARALELO</div><h2>Branch & Merge</h2></div><p>Las ramas permiten desarrollar funcionalidades de forma independiente.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>COMANDO</th><th>ACCIÓN</th><th>EJEMPLO</th></tr></thead><tbody>
+          <tr><td><b>Branch</b></td><td>Mostrar ramas locales</td><td><code>git branch</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Branch</b></td><td>Mostrar ramas locales y remotas</td><td><code>git branch -a</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Branch</b></td><td>Crear una rama</td><td><code>git branch nombre-rama</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Branch</b></td><td>Eliminar una rama local (forzado)</td><td><code>git branch -D nombre-rama</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Switch</b></td><td>Crear y cambiar a una rama</td><td><code>git switch -c nombre-rama</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Merge</b></td><td>Fusionar una rama en la rama actual</td><td><code>git merge nombre-rama</code><button class="copy">Copiar</button></td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="github">
+        <div class="section-heading"><div><div class="eyebrow">COLABORACIÓN REMOTA</div><h2>GitHub</h2></div><p>Conecta tu repositorio local con uno remoto.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>COMANDO</th><th>ACCIÓN</th><th>EJEMPLO</th></tr></thead><tbody>
+          <tr><td><b>Clone</b></td><td>Clonar un repositorio</td><td><code>git clone https://github.com/usuario/repo.git</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Pull</b></td><td>Traer cambios y actualizar la rama actual</td><td><code>git pull origin main</code><button class="copy">Copiar</button></td></tr>
+          <tr><td rowspan="3"><b>Remote</b></td><td>Conectar un repositorio remoto</td><td><code>git remote add origin URL</code><button class="copy">Copiar</button></td></tr>
+          <tr><td>Ver conexiones remotas</td><td><code>git remote -v</code><button class="copy">Copiar</button></td></tr>
+          <tr><td>Eliminar una conexión</td><td><code>git remote remove origin</code><button class="copy">Copiar</button></td></tr>
+          <tr><td rowspan="2"><b>Push</b></td><td>Subir la rama al remoto</td><td><code>git push -u origin main</code><button class="copy">Copiar</button></td></tr>
+          <tr><td>Subir cambios reescribiendo historial (con precaución)</td><td><code>git push --force-with-lease</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Revert</b></td><td>Crear un commit que revierte otro</td><td><code>git revert HEAD</code><button class="copy">Copiar</button></td></tr>
+        </tbody></table></div>
+        <div class="notice"><span>i</span><p>En proyectos nuevos, la rama principal suele llamarse <code>main</code>. Si tu repositorio utiliza <code>master</code>, sustituye el nombre en los ejemplos.</p></div>
+      </section>
+
+      <section class="section" id="tags">
+        <div class="section-heading"><div><div class="eyebrow">VERSIONADO</div><h2>Tags</h2></div><p>Marca puntos importantes del historial, por ejemplo, versiones de lanzamiento.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>COMANDO</th><th>ACCIÓN</th><th>EJEMPLO</th></tr></thead><tbody>
+          <tr><td><b>Tag anotado</b></td><td>Crear un tag anotado en HEAD</td><td><code>git tag -a v1.0 -m "Versión 1.0"</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Tag ligero</b></td><td>Crear un tag ligero en HEAD</td><td><code>git tag v1.0</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Tag</b></td><td>Etiquetar un commit específico</td><td><code>git tag -a v1.0 abc1234 -m "Versión 1.0"</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Tag</b></td><td>Listar todos los tags</td><td><code>git tag</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Tag</b></td><td>Buscar tags por patrón</td><td><code>git tag -l "v1.*"</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Tag</b></td><td>Eliminar un tag local</td><td><code>git tag -d v1.0</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Show</b></td><td>Ver información de un tag</td><td><code>git show v1.0</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Push</b></td><td>Subir un tag</td><td><code>git push origin v1.0</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Push</b></td><td>Subir todos los tags</td><td><code>git push origin --tags</code><button class="copy">Copiar</button></td></tr>
+          <tr><td><b>Push</b></td><td>Eliminar un tag remoto</td><td><code>git push origin --delete v1.0</code><button class="copy">Copiar</button></td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="vim">
+        <div class="section-heading"><div><div class="eyebrow">EDITOR DE TERMINAL</div><h2>Salir de Vim</h2></div><p>Algunos comandos de Git abren Vim para editar mensajes.</p></div>
+        <div class="vim-panel">
+          <div class="vim-header"><span class="vim-dot"></span><span class="vim-dot"></span><span class="vim-dot"></span><span>COMMIT_MESSAGE · VIM</span></div>
+          <pre><code># Escribe el mensaje del commit
+Merge branch 'main' into feature/login
+
+~
+~
+-- INSERT --</code></pre>
+          <ol><li><kbd>i</kbd><span>Entrar al modo de inserción.</span></li><li><kbd>Esc</kbd><span>Salir del modo de inserción.</span></li><li><kbd>:wq</kbd><span>Guardar y salir (Write and Quit).</span></li><li><kbd>:q!</kbd><span>Salir sin guardar.</span></li></ol>
+        </div>
+      </section>
+
+      <section class="section" id="errores">
+        <div class="section-heading"><div><div class="eyebrow">SOLUCIÓN DE PROBLEMAS</div><h2>Errores frecuentes</h2></div><p>Una solución para un bloqueo de índice que quedó después de una operación interrumpida.</p></div>
+        <div class="error-card"><div><span class="error-label">MENSAJE</span><code>.git/index.lock: File exists</code><p>Git detecta un archivo de bloqueo. Primero confirma que no haya otro proceso Git ejecutándose.</p></div><div class="error-solution"><span class="error-label">COMANDO · SOLO SI NO HAY OTRO PROCESO ACTIVO</span><div class="code-line"><code>rm -f .git/index.lock</code><button class="copy">Copiar</button></div></div></div>
+        <div class="extra-link"><span>＋</span><div><b>Agregar a esta guía</b><p>Cherry-pick: aplicar commits específicos en otra rama.</p><a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="noreferrer">Consultar documentación oficial ↗</a></div></div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-brand">GIT<span>.</span></div>
+        <p>Manual técnico · Una referencia para el flujo de trabajo diario.</p>
+        <div class="footer-bottom"><span>By Manuel Hidalgo</span><span>Hecho para GitHub Pages</span><a href="#inicio">Volver arriba ↑</a></div>
+      </footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Comando copiado</div>
+  <script src="assets/script.js"></script>
+</body>
+</html>
